@@ -40,7 +40,7 @@ app = Flask(__name__)
 #################################################
 # Database Setup
 #################################################
-engine = create_engine("postgresql://postgres:postgres@localhost/crimes") or "sqlite:///db.sqlite"
+engine = create_engine("postgresql://postgres:postgres@localhost/crimes") 
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 #################################################
