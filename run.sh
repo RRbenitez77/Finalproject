@@ -1,0 +1,1 @@
+FLASK_APP=crime_analysis/app.py flask run
