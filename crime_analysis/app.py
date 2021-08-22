@@ -7,7 +7,6 @@ from flask import (
     request,
     redirect)
 # import other libraries 
-from pymongo import MongoClient
 import os
 import sys
 import subprocess
@@ -40,7 +39,7 @@ app = Flask(__name__)
 #################################################
 # Database Setup
 #################################################
-engine = create_engine("postgresql://postgres:postgres@localhost/crimes") 
+engine = create_engine("postgresql://postgres:postgres@localhost/crime_db_final")
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 #################################################
@@ -66,16 +65,17 @@ Base.prepare(engine, reflect=True)
 
     ######  
 
-@app.route('/sqldata',methods=['GET'])
-def data_ml():
+@app.route('/crime_new',methods=['GET'])
+def data_new():
 
     # Find one record of data from the sqlite database
-    df = pd.read_sql('''SELECT * FROM crime_ml''', con = engine)
+    df = pd.read_sql('''SELECT * FROM crime_new''', con = engine)
     sql_crime = df.to_dict('records')
 
 
     # Return template and data
     return jsonify(sql_crime)
+###/crime_ml
 ##################################################
 # create route that renders index.html template
 @app.route("/", methods=["GET"])
@@ -86,6 +86,9 @@ def home():
 @app.route("/page1", methods=["GET"])
 def page1():
     return render_template("page1.html")
+ 
+# create route that renders page1.html template
+##page 2
  
 
 if __name__ == "__main__":
